@@ -8,46 +8,57 @@
  */ 
  
 import java.util.*;
+import java.lang.StringBuffer;
 
 public class StringCompression {
 	
-	private class CharNode {
-		char ch;
-		int occurence;
-	}	
-	
-	public static CharNode newCharNode(ch, occurence) {
-		CharNode node = new CharNode();
-		node.ch = ch;
-		node.occurence = occurence;
-		return node;
-	}	
 		
 	public static String compress(String s) {
-		LinkedList<CharNode> charList = new LinkedList<CharNode>();
-		for (char c: s) {
-			if (charList==null) {
-				charList.add(newCharNode(c, 1));
-			} else {
-				if (charList.getLast().ch == c) {
-					charList.getLast().occurence +=1;
-				} else {
-					charList.add(newCharNode(c, 1));
-				}		
+		StringBuffer sbuffer = new StringBuffer();
+		
+		char prevChar = s.charAt(0);
+		sbuffer.append(prevChar); // you can append char to a stringbuffer
+		int occurence = 1;
+		
+		for (int i=1; i<s.length(); ++i) {
+			char curChar = s.charAt(i);
+			if (curChar==prevChar) {
+				occurence++;
+			} else { // encounter a different char				
+				sbuffer.append(occurence); // append an int to a stringbuffer
+				// set up for the new different char
+				prevChar = curChar;
+				sbuffer.append(prevChar);
+				occurence = 1;
 			}		
 		}
+		sbuffer.append(occurence);
 		
-		char[] compressedArray = new char[2*charList.size()];
-		
-		// iterate over the linked list
-		for (CharNode node: charList) {
-			
-		}		
+		String compressedString = sbuffer.toString();
+		if ( compressedString.length() < s.length() ) {
+			return compressedString;
+		} else {	
+			return s;
+		}	
 	}
 	
-
+	public static void testHelper(String s) {
+		System.out.println("original: " + s);
+		System.out.println("compressed: " + compress(s) + "\n");
+	}	
 	
 	public static void main(String[] args) {
+		// normal case
+		testHelper("aabcccccaaa");
 		
+		// all are different
+		testHelper("abcdefghijklmnopq");
+
+		// single
+		testHelper("a");
+		
+		// all the same
+		testHelper("bbbbbb");
+
 	}	
 }	
