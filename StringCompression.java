@@ -51,6 +51,9 @@ public class StringCompression {
 		// normal case
 		testHelper("aabcccccaaa");
 		
+		// normal case
+		testHelper("abcccccaaa");
+		
 		// all are different
 		testHelper("abcdefghijklmnopq");
 
