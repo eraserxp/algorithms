@@ -39,11 +39,13 @@ public class IsRotation {
 			// compare s1 with s2[s2_cur:]
 			s2_cur = matchPos + 1; // s1[0] = s2[matchPos]
 			for (int i=1; i < s1_len; ++i ) {
-				if ( s1.charAt(i) == s2.charAt(s2_cur) ) {
-					s2_cur++;
+				if ( s1.charAt(i) != s2.charAt(s2_cur) ) {
+					break;
 				}	
+				s2_cur++;
 			}
-			
+			//System.out.printf("matchPos = %d\n", matchPos );
+			//System.out.printf("s2_cur = %d\n", s2_cur );
 			// if s2_cur has incremented s1_len times during the above process
 			// then s1 = s2[matchPos:s2_cur], otherwise continue	
 			if (s2_cur - matchPos == s1_len ) return true;
