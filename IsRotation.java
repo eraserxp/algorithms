@@ -39,7 +39,7 @@ public class IsRotation {
 			// compare s1 with s2[s2_cur:]
 			s2_cur = matchPos + 1; // s1[0] = s2[matchPos]
 			for (int i=1; i < s1_len; ++i ) {
-				if ( s1.charAt(i) != s2.charAt(s2_cur) ) {
+				if ( s2_cur >= s2_len || s1.charAt(i) != s2.charAt(s2_cur) ) {
 					break;
 				}	
 				s2_cur++;
@@ -63,9 +63,28 @@ public class IsRotation {
 		}	
 	}	
 	
+	
+	public static void testIsRotation(String s1, String s2) {
+		System.out.println("s1 = " + s1);
+		System.out.println("s2 = " + s2);
+		if (isRotation(s1, s2)) {
+			System.out.println("s1 is a rotation of s2\n");
+		} else {
+			System.out.println("s1 is NOT a rotation of s2\n");
+		}	
+	}	
+	
+	/* the original string can be regarded as XY
+	 * then the rotated string is YX and it is a substring of XYXY
+	 */ 
 	public static boolean isRotation(String s1, String s2) {
 		if (s1.length() != s2.length() ) return false;
-		return false;
+		String s2s2 = s2 + s2;
+		if (isSubstring(s1, s2s2)) {
+			return true;
+		} else {
+			return false;
+		}		
 	}	
 		
 	public static void main(String[] args) {
@@ -93,5 +112,25 @@ public class IsRotation {
 		s1 = "wrtwy";
 		s2 = "amfnnblywrwrtwymty";
 		testIsSubstring(s1, s2);
+		
+		// test normal case
+		s1 = "abcdefgh";
+		s2 = "defghabc";
+		testIsRotation(s1, s2);
+		
+		// the same string
+		s1 = "abc";
+		s2 = "abc";
+		testIsRotation(s1, s2);
+		
+		// single character
+		s1 = "a";
+		s2 = "a";
+		testIsRotation(s1, s2);
+		
+		// not a rotation
+		s1 = "abcdefgh";
+		s2 = "defgiabc";
+		testIsRotation(s1, s2);
 	}	
 }	  
