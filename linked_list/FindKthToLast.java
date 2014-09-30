@@ -9,12 +9,13 @@ public class FindKthToLast {
 	public static int kthToLast(LinkedListNode ll, int k) {
 		LinkedListNode curNode = ll;
 		int list_size = findSize(ll);
-		int beforeIndex = list_size - k;
-		while (beforeIndex > 0) {
+		// number of jumps to reach the element from the head of the list
+		int njump = list_size - k;
+		while (njump > 0) {
 			curNode = curNode.next;
-			beforeIndex--;
+			njump--;
 		}	
-		return curNode.next.data;
+		return curNode.data;
 	}	
 	
 	
