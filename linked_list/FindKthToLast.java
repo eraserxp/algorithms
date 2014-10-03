@@ -5,7 +5,7 @@
  */
  
 public class FindKthToLast {
-	
+//---------------------Most straightforward------------------------------	
 	public static int kthToLast(LinkedListNode ll, int k) {
 		LinkedListNode curNode = ll;
 		int list_size = findSize(ll);
@@ -30,7 +30,8 @@ public class FindKthToLast {
 		return counter;
 	}	
 	
-	// Let's do it recursively
+	
+//-------------------------recursive method-----------------------------
 	static class Counter {
 		public int count;
 		public int data;
@@ -58,6 +59,34 @@ public class FindKthToLast {
 			
 	}	
 	
+	
+//------------------------use two runners--------------------------------
+	public static LinkedListNode kthToLast2(LinkedListNode ll, int k) {
+		// use two runner that are separated by k
+		if (ll==null) return null;
+		
+		LinkedListNode runner1 = ll;
+		LinkedListNode runner2 = ll;
+		
+		// let runner2 to go k-1 steps ahead of runner1
+		for (int i=1; i<=k-1; ++i) {
+			if (runner2.next != null ) {
+				runner2 = runner2.next;
+			} else {
+				return null;
+			}	
+		}
+		
+		// let runner1 and runner2 move at the same speed
+		while (runner2.next!=null) { // until runner2 reach the end
+			runner1 = runner1.next;
+			runner2 = runner2.next;
+		}		
+		
+		return runner1;
+	}	
+
+	
 	public static void main(String[] args) {
 		LinkedListNode ll = new LinkedListNode(10);
 		ll.add(9);
@@ -83,6 +112,13 @@ public class FindKthToLast {
 			kthToLast_recur(ll, counter, i);
 			System.out.printf("The %dth to last element is %d\n", i, 
 			                  counter.data);
+		}
+		
+		System.out.println("");
+		
+		for (int i=1; i<=10; ++i) {
+			LinkedListNode node = kthToLast2(ll, i);
+			System.out.printf("The %dth to last element is %d\n", i, node.data);
 		}
 		
 	}	
