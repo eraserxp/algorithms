@@ -18,6 +18,14 @@ public class LinkedListNode {
 		n.next = end;
 	}
 	
+	public void append(LinkedListNode node) {
+		LinkedListNode n = this;
+		while (n.next != null ) {
+			n = n.next;
+		}
+		n.next = node;
+	}	
+	
 	
 	public void print() {
 		LinkedListNode n = this;
