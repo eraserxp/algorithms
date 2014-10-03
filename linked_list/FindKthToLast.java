@@ -30,6 +30,34 @@ public class FindKthToLast {
 		return counter;
 	}	
 	
+	// Let's do it recursively
+	static class Counter {
+		public int count;
+		public int data;
+		
+		Counter () {
+			count = 0;
+		}	
+		
+	}	
+	
+	public static void kthToLast_recur(LinkedListNode ll, 
+	                                     Counter counter, int k) {
+		if (ll==null) return;
+		
+		if (ll.next==null) { // if it is the last element of the list
+			counter.count++;
+		} else { // if it is not the last element
+			kthToLast_recur(ll.next, counter, k);
+			counter.count++;
+		}	
+		
+		if (counter.count == k) {
+			counter.data = ll.data;
+		}		
+			
+	}	
+	
 	public static void main(String[] args) {
 		LinkedListNode ll = new LinkedListNode(10);
 		ll.add(9);
@@ -45,8 +73,17 @@ public class FindKthToLast {
 		ll.print();
 		
 		for (int i=1; i<=10; ++i) {
-			//System.out.printf("The %dth to last element is \n", i);
 			System.out.printf("The %dth to last element is %d\n", i, kthToLast(ll, i));
 		}
+		
+		System.out.println("");
+		
+		for (int i=1; i<=10; ++i) {
+			Counter counter = new Counter();
+			kthToLast_recur(ll, counter, i);
+			System.out.printf("The %dth to last element is %d\n", i, 
+			                  counter.data);
+		}
+		
 	}	
 }	  
