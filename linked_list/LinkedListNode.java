@@ -6,6 +6,7 @@ public class LinkedListNode {
 	
 	public LinkedListNode(int d) {
 		data = d;
+		next = null;
 	}
 	
 	
@@ -30,7 +31,11 @@ public class LinkedListNode {
 	public void print() {
 		LinkedListNode n = this;
 		while (n != null) {
-			System.out.printf("%d --> ", n.data);
+			if (n.next != null ) {
+				System.out.printf("%d --> ", n.data);
+			} else {
+				System.out.printf("%d ", n.data);
+			}	
 			n = n.next;
 		}
 
