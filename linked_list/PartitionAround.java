@@ -9,30 +9,28 @@ public class PartitionAround {
 	// return the head of the new linked list
 	public static LinkedListNode partitionAround(LinkedListNode ll, int x) {
 		// start from a list with only one node
+		// we are actually creating a new linked list
 		LinkedListNode head = ll;
 		LinkedListNode tail = ll;
 		
 		while (ll!=null) {
-			LinkedListNode curNode = ll.next;
-			if (curNode.data < x) {
-				// remove the node from the original list
-				ll.next = ll.next.next;
+			// because the current node ll will be moved, we have to 
+			// save the next node for the loop to continue
+			LinkedListNode next = ll.next;
+			if (ll.data < x) {
 				// prepend the node
-				curNode.next = head;
+				ll.next = head;
 				// update the head
-				head = curNode;
-			} else {
-				// remove the node from the original list
-				ll.next = ll.next.next;
+				head = ll;
+			} else  {
 				// append the node
-				tail.next = curNode;
+				tail.next = ll;
 				// update the tail
-				tail = curNode;
-				curNode.next = null;
-			}
-			ll = ll.next;		
+				tail = ll;
+			} 	
+			ll = next;
 		}	
-		
+		tail.next = null;
 		return head; 	
 	}	
 	
@@ -49,7 +47,7 @@ public class PartitionAround {
 		ll.print();
 		
 		LinkedListNode x = ll.next.next.next;
-		LinkedListNode head = partitionAround(ll, 3);
+		LinkedListNode head = partitionAround(ll, 5);
 		System.out.printf("After partitioning around %d, the list becomes:",
 		                  x.data);
 		head.print();                  
