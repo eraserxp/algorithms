@@ -4,6 +4,10 @@ public class LinkedListNode {
 	public LinkedListNode next = null;
 	public int data;
 	
+	public LinkedListNode() {
+		
+	}	
+	
 	public LinkedListNode(int d) {
 		data = d;
 		next = null;
